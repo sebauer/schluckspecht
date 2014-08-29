@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "bunyan": "0.x.x",
     "express": "3.x",
-	"mongoose": "3.8.x"
+    "mongoose": "3.8.x"
   }
 }
