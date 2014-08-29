@@ -31,6 +31,6 @@
   },
   "scripts": {
     "test": "npm run test-user",
-    "test-user": "cucumber-js"
+    "test-user": "node node_modules/cucumber/bin/cucumber.js"
   }
 }
