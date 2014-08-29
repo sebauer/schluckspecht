@@ -1,6 +1,8 @@
 module.exports = {
-  addBottle: function(bottleType, num),
-  removeBottle: function(bottleType, num),
+  addBottles: function(bottleType, num) {
+
+  },
+  removeBottles: function(bottleType, num),
   getBottles: function(),
   getBottlesByType: function(bottleType),
 
