@@ -11,63 +11,99 @@ bottleService.setConnection(mongoose);
 
 describe('bottleService', function(){
 
-var BottleType = mongoose.model('BottleType');
+  var BottleType = mongoose.model('BottleType');
 
-  // Set up test models
-  beforeEach(function(done){
-      mockgoose.reset();
-      BottleType.create({
-        make: 'Tegernseer',
-        name: 'Pils Hell',
-        stockCount: 0
-      }, function(err, model) {
-        done(err);
-      });
-  });
+  describe('bottleTypes', function(){
 
-  describe('addBottles', function() {
 
-    it('should return the new number of bottles on stock', function(done){
-      BottleType.findOne({
-        name: 'Pils Hell',
-        make: 'Tegernseer'
-      }, function(err, tegernseer){
-        if(err) done(err);
-        bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
-          if(err) done(err);
-          assert.equal(newValue, 10);
+    describe('addBottleTypes', function(){
+
+
+      it('should return the newly added bottle type', function(done){
+
+        bottleService.addBottleType({
+          make: 'Tegernseer',
+          name: 'Pils Hell'
+        }, function(err, result){
+          if(err) {
+            done(err);
+            return;
+          }
+          assert.equal(result.make, 'Tegernseer');
+          assert.equal(result.name, 'Pils Hell');
+          assert.equal(result.stockCount, 0);
+          assert.ok(result._id)
           done();
         });
+
       });
+
+
+      it('should not allow adding an existing type');
+
+
+    });
+  });
+
+
+  describe('bottles', function(){
+
+    // Set up test models
+    beforeEach(function(done){
+        mockgoose.reset();
+        BottleType.create({
+          make: 'Tegernseer',
+          name: 'Pils Hell',
+          stockCount: 0
+        }, function(err, model) {
+          done(err);
+        });
     });
 
+    describe('addBottles', function() {
 
-    it('should fail if the number of added bottles is negative', function(done){
-      BottleType.findOne({
-        name: 'Pils Hell',
-        make: 'Tegernseer'
-      }, function(err, tegernseer){
-        if(err) done(err);
-        bottleService.addBottles(tegernseer._id, -10, function(callbackError, newValue){
-          if(callbackError) done();
-          else {
-            done(new Error('No error raised'));
-          }
+      it('should return the new number of bottles on stock', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
+            if(err) done(err);
+            assert.equal(newValue, 10);
+            done();
+          });
         });
       });
-    });
 
-    it('should fail no valid number is given', function(done){
-      BottleType.findOne({
-        name: 'Pils Hell',
-        make: 'Tegernseer'
-      }, function(err, tegernseer){
-        if(err) done(err);
-        bottleService.addBottles(tegernseer._id, 'foobar', function(err, newValue){
-          if(err) done();
-          else {
-            done(new Error('No error raised'));
-          }
+
+      it('should fail if the number of added bottles is negative', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          bottleService.addBottles(tegernseer._id, -10, function(callbackError, newValue){
+            if(callbackError) done();
+            else {
+              done(new Error('No error raised'));
+            }
+          });
+        });
+      });
+
+      it('should fail no valid number is given', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          bottleService.addBottles(tegernseer._id, 'foobar', function(err, newValue){
+            if(err) done();
+            else {
+              done(new Error('No error raised'));
+            }
+          });
         });
       });
     });
