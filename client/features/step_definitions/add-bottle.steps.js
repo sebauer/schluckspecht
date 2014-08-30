@@ -20,9 +20,9 @@ module.exports = function() {
   });
 
 
-  var test = function (assert, callback) {
+  var test = function (testFunc, callback) {
     browserPromise.then(function() {
-      assert();
+      testFunc();
       callback();
     }).fail(function() {
       callback.fail();
@@ -31,7 +31,12 @@ module.exports = function() {
 
   this.Given(/^the stock of "([^"]*)" bottles is (\d+)$/, function (bottleType, count, callback) {
     // Write code here that turns the phrase above into concrete actions
+    test(function() {
+      var elem = browser.query("body");
+      assert(elem);
+    }, callback);
 
+    /*
     browserPromise.then(function() {
       // check if count field is 0
       // assert
@@ -41,12 +46,21 @@ module.exports = function() {
     }).fail(function() {
       callback.fail();
     });
+    */
 
   });
 
   this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (bottleType, count, callback) {
     // fill in bottle type, fill in count, submit
 
+    test(function() {
+      // if button is not found an exception is raised
+      browser.pressButton("Google-Suche", function() {
+        assert(0 === 1);
+      });
+    }, callback);
+
+    /*
     browserPromise.then(function() {
       // check if count field is 0
       // assert
@@ -56,6 +70,8 @@ module.exports = function() {
     }).fail(function() {
       callback.fail();
     });
+    */
+
 
   });
 
