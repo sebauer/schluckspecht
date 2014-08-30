@@ -28,6 +28,27 @@ server.post('/bottle-service/bottles/add', function(req, res){
       if(err) {
         log.error(err);
         res.send(500, err);
+      } else {
+        log.info('Call succeeded');
+        res.send(200, result);
+      }
+    });
+  } catch(e){
+    log.error(e);
+    res.send(500, e);
+  }
+});
+
+server.post('/bottle-service/bottle-types/add', function(req, res){
+  log.info('Received call to bottle-types/add');
+  try {
+    bottleService.addBottleType(req.params.make, req.params.name, function(err, result){
+      if(err) {
+        log.error(err);
+        res.send(500, err);
+      } else {
+        log.info('Call succeeded');
+        res.send(200, result);
       }
     });
   } catch(e){
