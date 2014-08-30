@@ -40,7 +40,7 @@ angular.module( 'ngBoilerplate.home', [
 .controller( 'HomeCtrl', function HomeController( $scope ) {
 
   var warehouse = [
-    {id: 0, name: "Volvic", stock: 0},
+    {id: 0, name: "volvic", stock: 0},
     {id: 1, name: "Krombacher Fassbrause", stock: 0}
   ];
 
