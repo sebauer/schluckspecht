@@ -15,7 +15,7 @@ module.exports = {
     var BottleType = mongoose.model('BottleType');
 
     // Find bottle type
-      BottleType.findByIdAndUpdate(bottleTypeId, {
+    BottleType.findByIdAndUpdate(bottleTypeId, {
       $inc: {
         stockCount: num
       }
@@ -39,6 +39,7 @@ module.exports = {
       callback(new Error('"make" and "name" cannot be empty'));
       return;
     }
+
     callback(null, {});
   },
   removeBottleType: function(bottleType){},
