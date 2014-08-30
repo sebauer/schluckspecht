@@ -13,6 +13,7 @@
     "mockgoose": "1.10.x"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node app.js | node node_modules/bunyan/bin/bunyan"
   }
 }
