@@ -6,6 +6,10 @@ module.exports = {
   },
 
   addBottles: function(bottleTypeId, num, callback) {
+    if(num <= 0){
+      callback(new Error('Number of added bottles cannot be negative'));
+    }
+
     var BottleType = mongoose.model('BottleType');
 
     // Find bottle type

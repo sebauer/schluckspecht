@@ -48,6 +48,9 @@ var BottleType = mongoose.model('BottleType');
         if(err) done(err);
         bottleService.addBottles(tegernseer._id, -10, function(err, newValue){
           if(err) done();
+          else {
+            done(new Error('No error raised'));
+          }
         });
       });
     });
