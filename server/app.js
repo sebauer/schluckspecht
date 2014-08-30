@@ -21,8 +21,19 @@ log.info('Connecting with MongoDB..');
 db = mongoose.connect(config.mongooseConnectionString);
 bottleService.setConnection(db);
 
-server.post('/bottle-service/bottles/add/:id/:amount', function(req, res){
-  bottleService.addBottles(req.id, req.amount);
+server.post('/bottle-service/bottles/add', function(req, res){
+  log.info('Received call to bottles/add');
+  try {
+    bottleService.addBottles(req.params.id, req.params.amount, function(err, result){
+      if(err) {
+        log.error(err);
+        res.send(500, err);
+      }
+    });
+  } catch(e){
+    log.error(e);
+    res.send(500, e);
+  }
 });
 
 server.listen(config.restApiPort, function(){

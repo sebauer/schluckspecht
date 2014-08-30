@@ -1,4 +1,5 @@
 var mongoose = {};
+require('../models/BottleType');
 
 module.exports = {
   setConnection: function(mongoInstance) {
