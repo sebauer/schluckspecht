@@ -35,10 +35,24 @@ describe('bottleService', function(){
 
       });
 
+      it('should throw an error if make or name are missing', function(done){
 
-      it('should not allow adding an existing type');
+        bottleService.addBottleType('Tegernseer', '', function(err, result){
+          if(err) {
+            bottleService.addBottleType('', 'Pils Hell', function(err, result){
+              if(err) done();
+              else {
+                assert.fail('NO Error raised', 'Error raised', 'No error raised for empty make');
+              }
+            });
+          } else {
+            assert.fail('NO Error raised', 'Error raised', 'No error raised for empty name');
+          }
+        });
 
+      });
 
+      // it('should not allow adding an existing type');
     });
   });
 
