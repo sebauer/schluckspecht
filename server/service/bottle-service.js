@@ -6,6 +6,11 @@ module.exports = {
     mongoose = mongoInstance;
   },
 
+  /**
+   * Add bottles to the stock of the given BottleType.
+   *
+   * Returns the new stock value
+   */
   addBottles: function(bottleTypeId, num, callback) {
     if(num <= 0 || isNaN(num)){
       callback(new Error('Must be a valid positive number'));
@@ -34,6 +39,12 @@ module.exports = {
   getBottles: function(){},
   getBottlesByTypeId: function(bottleTypeId){},
 
+
+  /**
+   * Add a new BottleType to the system
+   *
+   * Returns the Model of the newly added BottleType
+   */
   addBottleType: function(make, name, callback){
     if(make == '' || name == '') {
       callback(new Error('"make" and "name" cannot be empty'));
