@@ -7,5 +7,8 @@
     "bunyan": "0.x.x",
     "express": "3.x",
     "mongoose": "3.8.x"
+  },
+  "devDependencies": {
+    "mockgoose": "1.10.x"
   }
 }
