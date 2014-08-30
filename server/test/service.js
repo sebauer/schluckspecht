@@ -26,14 +26,18 @@ var BottleType = mongoose.model('BottleType');
   });
 
   describe('addBottles', function() {
-    
+
     it('should return the new number of bottles on stock', function(done){
       BottleType.findOne({
         name: 'Pils Hell',
         make: 'Tegernseer'
       }, function(err, tegernseer){
         if(err) done(err);
-        assert.equal(bottleService.addBottles(tegernseer, 10), 10);
+        bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
+          if(err) done(err);
+          assert.equal(newValue, 10);
+          done();
+        });
       });
     });
 

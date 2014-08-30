@@ -26,7 +26,7 @@
     "grunt-karma": "^0.8.2",
     "karma-coffee-preprocessor": "^0.2.1",
     "karma": "^0.12.9",
-	"cucumber": "latest",
+	  "cucumber": "latest",
     "zombie": "latest"
   },
   "scripts": {
