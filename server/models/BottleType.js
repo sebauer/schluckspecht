@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var BottleTypeSchema = new Schema({
   _id: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    auto: true
   },
   make: {
     type: String,
