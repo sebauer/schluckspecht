@@ -46,30 +46,37 @@ module.exports = function() {
     }
   };
 
+  var getBottleStock = function(bottleType) {
+    return browser.field(bottleType + " Stock");
+  };
+
   this.Given(/^the stock of "([^"]*)" bottles is (\d+)$/, function (bottleType, count, callback) {
     // Write code here that turns the phrase above into concrete actions
 
     test(function() {
-      var elem = browser.query("body");
-      assert(elem);
+      var stock = getBottleStock(bottleType);
+      assert(stock == count);
     }, callback);
 
   });
 
   this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (bottleType, count, callback) {
-    // fill in bottle type, fill in count, submit
-    pressButton(callback, function() {
-      assert(0 === 1);
-    }, "Google-Suche");
-
+    try {
+      browser.fill(bottleType + " Count").pressButton("Add " + bottleType, function() {
+        callback();
+      });
+    } catch (e) {
+      callback.fail();
+    }
   });
 
   this.Then(/^the stock of "([^"]*)" bottles should be (\d+)$/, function (bottleType, count, callback) {
     // Write code here that turns the phrase above into concrete actions
 
-    browserPromise.then(function() {
-      callback();
-    });
+    test(function() {
+      var stock = getBottleStock(bottleType);
+      assert(stock == count);
+    }, callback);
 
   });
 
