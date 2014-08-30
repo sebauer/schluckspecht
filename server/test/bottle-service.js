@@ -79,11 +79,13 @@ describe('bottleService', function(){
           make: 'Tegernseer'
         }, function(err, tegernseer){
           if(err) done(err);
-          bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
-            if(err) done(err);
-            assert.equal(newValue, 10);
-            done();
-          });
+          else {
+            bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
+              if(err) done(err);
+              assert.equal(newValue, 10);
+              done();
+            });
+          }
         });
       });
 

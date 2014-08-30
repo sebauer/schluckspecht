@@ -32,7 +32,7 @@ module.exports = {
   },
   removeBottles: function(bottleTypeId, num){},
   getBottles: function(){},
-  getBottlesByType: function(bottleTypeId){},
+  getBottlesByTypeId: function(bottleTypeId){},
 
   addBottleType: function(make, name, callback){
     if(make == '' || name == '') {
@@ -40,7 +40,18 @@ module.exports = {
       return;
     }
 
-    callback(null, {});
+    var BottleType = mongoose.model('BottleType');
+    BottleType.create({
+      'make': make,
+      'name': name
+    }, function(err, model) {
+      if(err){
+        callback(err);
+      } else {
+        callback(null, model);
+      }
+    });
   },
+
   removeBottleType: function(bottleType){},
 }
