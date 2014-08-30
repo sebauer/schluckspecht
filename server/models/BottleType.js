@@ -15,7 +15,8 @@ var BottleTypeSchema = new Schema({
     index: true
   },
   stockCount: {
-    type: Number
+    type: Number,
+    default: 0
   }
 });
 
