@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var BottleTypeSchema = new mongoose.Schema({
-  id: {
-    type: ObjectId,
-    turnOn: true
-  }
+var BottleTypeSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId
+  },
   make: {
     type: String,
     index: true
