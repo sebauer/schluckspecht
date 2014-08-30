@@ -16,7 +16,6 @@ module.exports = {
       callback(new Error('Must be a valid positive number'));
       return;
     }
-
     var BottleType = mongoose.model('BottleType');
 
     // Find bottle type
@@ -36,7 +35,13 @@ module.exports = {
     });
   },
   removeBottles: function(bottleTypeId, num){},
-  getBottles: function(){},
+
+  getBottleTypes: function(callback){
+    var BottleType = mongoose.model('BottleType');
+    
+    BottleType.find({}, callback);
+  },
+
   getBottlesByTypeId: function(bottleTypeId){},
 
 

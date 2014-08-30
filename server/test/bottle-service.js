@@ -27,6 +27,32 @@ describe('bottleService', function(){
 
   describe('bottleTypes', function(){
 
+    describe('getBottleTypes', function(){
+      beforeEach(function(done){
+        mockgoose.reset();
+        BottleType.create([
+          {
+            make: 'Rothaus',
+            name: 'Tannenzäpfle'
+          }, {
+            make: 'Tegernseer',
+            name: 'Pils'
+          }, {
+            make: 'Volvic',
+            name: 'Natürliches Mineralwasser'
+          }
+        ], function(err, model) {
+          done(err);
+        });
+      });
+
+      it('should return a list of all existing bottle types', function(done){
+        bottleService.getBottleTypes(function(err, result){
+          assert.equal(result.length, 3);
+          done();
+        });
+      });
+    });
 
     describe('addBottleTypes', function(){
 
