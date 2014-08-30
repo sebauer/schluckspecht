@@ -40,9 +40,17 @@ var BottleType = mongoose.model('BottleType');
         });
       });
     });
-
-    it('should increase the number of bottles of the given type by the number of bottles which have been added');
-    it('should fail if the number of added bottles is negative');
+    it('should fail if the number of added bottles is negative', function(done){
+      BottleType.findOne({
+        name: 'Pils Hell',
+        make: 'Tegernseer'
+      }, function(err, tegernseer){
+        if(err) done(err);
+        bottleService.addBottles(tegernseer._id, -10, function(err, newValue){
+          if(err) done();
+        });
+      });
+    });
   });
 
   afterEach(function(done){
