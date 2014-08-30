@@ -40,20 +40,37 @@ var BottleType = mongoose.model('BottleType');
         });
       });
     });
+
+
     it('should fail if the number of added bottles is negative', function(done){
       BottleType.findOne({
         name: 'Pils Hell',
         make: 'Tegernseer'
       }, function(err, tegernseer){
         if(err) done(err);
-        bottleService.addBottles(tegernseer._id, -10, function(err, newValue){
-          if(err) done();
+        bottleService.addBottles(tegernseer._id, -10, function(callbackError, newValue){
+          if(callbackError) done();
           else {
             done(new Error('No error raised'));
           }
         });
       });
     });
+/*
+    it('should fail no valid number is given', function(done){
+      BottleType.findOne({
+        name: 'Pils Hell',
+        make: 'Tegernseer'
+      }, function(err, tegernseer){
+        if(err) done(err);
+        bottleService.addBottles(tegernseer._id, 'foobar', function(err, newValue){
+          if(err) done();
+          else {
+            done(new Error('No error raised'));
+          }
+        });
+      });
+    });*/
   });
 
   afterEach(function(done){
