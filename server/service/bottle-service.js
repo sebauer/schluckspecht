@@ -23,7 +23,10 @@ module.exports = {
       select: ['stockCount']
     }, function(err, result){
       // Check for error
-      if(err) callback(err);
+      if(err) {
+        callback(err);
+        return;
+      }
       callback(null, result.stockCount);
     });
   },
@@ -31,6 +34,12 @@ module.exports = {
   getBottles: function(){},
   getBottlesByType: function(bottleTypeId){},
 
-  addBottleType: function(bottleType){},
+  addBottleType: function(make, name, callback){
+    if(make == '' || name == '') {
+      callback(new Error('"make" and "name" cannot be empty'));
+      return;
+    }
+    callback(null, {});
+  },
   removeBottleType: function(bottleType){},
 }
