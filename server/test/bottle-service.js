@@ -21,10 +21,7 @@ describe('bottleService', function(){
 
       it('should return the newly added bottle type', function(done){
 
-        bottleService.addBottleType({
-          make: 'Tegernseer',
-          name: 'Pils Hell'
-        }, function(err, result){
+        bottleService.addBottleType('Tegernseer', 'Pils Hell', function(err, result){
           if(err) {
             done(err);
             return;
