@@ -13,6 +13,18 @@ describe('bottleService', function(){
 
   var BottleType = mongoose.model('BottleType');
 
+  // Set up test models
+  beforeEach(function(done){
+      mockgoose.reset();
+      BottleType.create({
+        make: 'Tegernseer',
+        name: 'Pils Hell',
+        stockCount: 0
+      }, function(err, model) {
+        done(err);
+      });
+  });
+
   describe('bottleTypes', function(){
 
 
@@ -21,13 +33,13 @@ describe('bottleService', function(){
 
       it('should return the newly added bottle type', function(done){
 
-        bottleService.addBottleType('Tegernseer', 'Pils Hell', function(err, result){
+        bottleService.addBottleType('Rothaus', 'Tannenzäpfle', function(err, result){
           if(err) {
             done(err);
             return;
           }
-          assert.equal(result.make, 'Tegernseer');
-          assert.equal(result.name, 'Pils Hell');
+          assert.equal(result.make, 'Rothaus');
+          assert.equal(result.name, 'Tannenzäpfle');
           assert.equal(result.stockCount, 0);
           assert.ok(result._id)
           done();
@@ -37,9 +49,9 @@ describe('bottleService', function(){
 
       it('should throw an error if make or name are missing', function(done){
 
-        bottleService.addBottleType('Tegernseer', '', function(err, result){
+        bottleService.addBottleType('Rothaus', '', function(err, result){
           if(err) {
-            bottleService.addBottleType('', 'Pils Hell', function(err, result){
+            bottleService.addBottleType('', 'Tannenzäpfle', function(err, result){
               if(err) done();
               else {
                 assert.fail('NO Error raised', 'Error raised', 'No error raised for empty make');
@@ -52,24 +64,33 @@ describe('bottleService', function(){
 
       });
 
-      // it('should not allow adding an existing type');
+      it('should not allow adding an existing bottle type with an already existing make/name combination', function(done){
+        bottleService.addBottleType('Tegernseer', 'Pils Hell', function(err, result){
+          assert.ifError(err);
+          done();
+        });
+      });
+
+
+      it('should succeed when adding a new type with an already existing make', function(done){
+        bottleService.addBottleType('Tegernseer', 'Weizen', function(err, result){
+          if(err) {
+            done(err);
+            return;
+          }
+          assert.equal(result.make, 'Tegernseer');
+          assert.equal(result.name, 'Weizen');
+          assert.equal(result.stockCount, 0);
+          assert.ok(result._id)
+          done();
+        });
+      });
+
     });
   });
 
 
   describe('bottles', function(){
-
-    // Set up test models
-    beforeEach(function(done){
-        mockgoose.reset();
-        BottleType.create({
-          make: 'Tegernseer',
-          name: 'Pils Hell',
-          stockCount: 0
-        }, function(err, model) {
-          done(err);
-        });
-    });
 
     describe('addBottles', function() {
 
