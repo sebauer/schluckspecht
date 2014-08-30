@@ -9,7 +9,7 @@ module.exports = {
     var BottleType = mongoose.model('BottleType');
 
     // Find bottle type
-    BottleType.findByIdAndUpdate(bottleTypeId, {
+      BottleType.findByIdAndUpdate(bottleTypeId, {
       $inc: {
         stockCount: num
       }
