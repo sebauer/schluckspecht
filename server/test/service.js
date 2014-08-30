@@ -56,7 +56,7 @@ var BottleType = mongoose.model('BottleType');
         });
       });
     });
-/*
+
     it('should fail no valid number is given', function(done){
       BottleType.findOne({
         name: 'Pils Hell',
@@ -70,7 +70,7 @@ var BottleType = mongoose.model('BottleType');
           }
         });
       });
-    });*/
+    });
   });
 
   afterEach(function(done){

@@ -6,8 +6,8 @@ module.exports = {
   },
 
   addBottles: function(bottleTypeId, num, callback) {
-    if(num <= 0){
-      callback(new Error('Number of added bottles cannot be negative'));
+    if(num <= 0 || isNaN(num)){
+      callback(new Error('Must be a valid positive number'));
       return;
     }
 
