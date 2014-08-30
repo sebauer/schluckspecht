@@ -10,7 +10,7 @@ var browserPromise;
 module.exports = function() {
 
   this.Before(function(callback) {
-    browserPromise = browser.visit("http://www.google.de", function() {
+    browserPromise = browser.visit("http://localhost/app.html#/home", function() {
       callback();
     });
   });
@@ -47,7 +47,8 @@ module.exports = function() {
   };
 
   var getBottleStock = function(bottleType) {
-    return browser.field(bottleType + " Stock");
+    var selector = "#" + bottleType + "Stock";
+    return browser.text(selector);
   };
 
   this.Given(/^the stock of "([^"]*)" bottles is (\d+)$/, function (bottleType, count, callback) {
@@ -62,7 +63,7 @@ module.exports = function() {
 
   this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (bottleType, count, callback) {
     try {
-      browser.fill(bottleType + " Count").pressButton("Add " + bottleType, function() {
+      browser.fill("#" + bottleType + "Count").pressButton("#" + bottleType + "Add", function() {
         callback();
       });
     } catch (e) {
