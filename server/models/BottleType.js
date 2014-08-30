@@ -15,9 +15,18 @@ var BottleTypeSchema = new Schema({
     index: true
   },
   stockCount: {
-    type: Number
+    type: Number,
+    default: 0
   }
 });
+
+// Define the unique index for our schema
+BottleTypeSchema.index({
+  make: 1,
+  name: 1
+}, {
+  unique: true
+})
 
 var BottleType = mongoose.model('BottleType', BottleTypeSchema);
 

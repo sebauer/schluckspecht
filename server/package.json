@@ -6,9 +6,14 @@
   "dependencies": {
     "bunyan": "0.x.x",
     "express": "3.x",
-    "mongoose": "3.8.x"
+    "mongoose": "3.8.x",
+    "restify": "2.8.x"
   },
   "devDependencies": {
     "mockgoose": "1.10.x"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node app.js | node node_modules/bunyan/bin/bunyan"
   }
 }
