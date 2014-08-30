@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "mockgoose": "1.10.x"
+  },
+  "scripts": {
+    "test": "mocha"
   }
 }
