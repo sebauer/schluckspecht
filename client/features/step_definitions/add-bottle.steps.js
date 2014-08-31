@@ -1,5 +1,4 @@
 var assert = require('assert');
-var Q = require('Q');
 var Browser = require('zombie');
 
 var browser = new Browser();
@@ -51,6 +50,14 @@ module.exports = function() {
     return browser.text(selector);
   };
 
+  var getBottleCountSelector = function(bottleType) {
+    return "#" + bottleType + "Count";
+  };
+
+  var getBottleAddSelector = function(bottleType) {
+    return "#" + bottleType + "Add";
+  };
+
   this.Given(/^the stock of "([^"]*)" bottles is (\d+)$/, function (bottleType, count, callback) {
     // Write code here that turns the phrase above into concrete actions
 
@@ -61,9 +68,9 @@ module.exports = function() {
 
   });
 
-  this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (bottleType, count, callback) {
+  this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (count, bottleType, callback) {
     try {
-      browser.fill("#" + bottleType + "Count").pressButton("#" + bottleType + "Add", function() {
+      browser.fill(getBottleCountSelector(bottleType), count).pressButton(getBottleAddSelector(bottleType), function() {
         callback();
       });
     } catch (e) {
