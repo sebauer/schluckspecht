@@ -6,6 +6,7 @@ var server = restify.createServer();
 var config = require('./config');
 var pjson = require('./package.json');
 var bottleService = require('./service/bottle-service');
+var callbackHelper = require('./helper/callback-helper');
 
 var log = bunyan.createLogger(
   {
@@ -23,16 +24,10 @@ bottleService.setConnection(db);
 
 server.get('/bottle-service/bottle-types/get', function(req, res){
   log.info('Received call to bottle-types/get');
+
   try {
-    bottleService.getBottleTypes(function(err, result){
-      if(err) {
-        log.error(err);
-        res.send(500, err);
-      } else {
-        log.info('Call succeeded');
-        res.send(200, result);
-      }
-    });
+    var cbHelper = new callbackHelper(req, res, log);
+    bottleService.getBottleTypes(cbHelper.handleCallback);
   } catch(e) {
     log.error(e);
     res.send(500, e);
@@ -41,16 +36,10 @@ server.get('/bottle-service/bottle-types/get', function(req, res){
 
 server.post('/bottle-service/bottles/add', function(req, res){
   log.info('Received call to bottles/add');
+
   try {
-    bottleService.addBottles(req.params.id, req.params.amount, function(err, result){
-      if(err) {
-        log.error(err);
-        res.send(500, err);
-      } else {
-        log.info('Call succeeded');
-        res.send(200, result);
-      }
-    });
+    var cbHelper = new callbackHelper(req, res, log);
+    bottleService.addBottles(req.params.id, req.params.amount, cbHelper.handleCallback);
   } catch(e){
     log.error(e);
     res.send(500, e);
@@ -59,16 +48,10 @@ server.post('/bottle-service/bottles/add', function(req, res){
 
 server.post('/bottle-service/bottle-types/add', function(req, res){
   log.info('Received call to bottle-types/add');
+
   try {
-    bottleService.addBottleType(req.params.make, req.params.name, function(err, result){
-      if(err) {
-        log.error(err);
-        res.send(500, err);
-      } else {
-        log.info('Call succeeded');
-        res.send(200, result);
-      }
-    });
+    var cbHelper = new callbackHelper(req, res, log);
+    bottleService.addBottleType(req.params.make, req.params.name, cbHelper.handleCallback);
   } catch(e){
     log.error(e);
     res.send(500, e);
