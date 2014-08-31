@@ -1,5 +1,23 @@
 <div class="row">
 	<div class="col-md-12">
-		<div class="alert alert-info" role="alert">Hello World new!</div>
+
+		<table class="table table-striped">
+			<thead>
+				<th>Type</th>
+				<th>Stock</th>
+				<th>Add Bottles</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="bottleType in getBottleTypes()">
+					<td>{{ bottleType.name }}</td>
+					<td id="{{bottleType.name + 'Stock'}}">{{ bottleType.stock }}</td>
+					<td>
+						<input id="{{bottleType.name + 'Count'}}" type="text" ng-model="newBottleStock" />
+						<button id="{{bottleType.name + 'Add'}}" ng-click="addBottle(bottleType, newBottleStock)" class="btn">Add</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
 	</div>
 </div>

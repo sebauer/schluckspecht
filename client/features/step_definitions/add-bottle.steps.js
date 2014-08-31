@@ -9,7 +9,7 @@ var browserPromise;
 module.exports = function() {
 
   this.Before(function(callback) {
-    browserPromise = browser.visit("http://www.google.de", function() {
+    browserPromise = browser.visit("http://localhost/app.html#/home", function() {
       callback();
     });
   });
@@ -20,54 +20,71 @@ module.exports = function() {
   });
 
 
-  var test = function (assert, callback) {
+  var test = function(testFunc, callback) {
     browserPromise.then(function() {
-      assert();
-      callback();
-    }).fail(function() {
-      callback.fail();
+      testFunc();
     })
+    .then(callback)
+    .fail(function() {
+      callback.fail();
+    });
+  };
+
+  var pressButton = function(testCallback, clickCallback, selector) {
+    try {
+      browser.pressButton(selector, function() {
+        try {
+          clickCallback();
+          testCallback();
+        } catch (e) {
+          testCallback.fail();
+        }
+      });
+    } catch (e) {
+      testCallback.fail();
+    }
+  };
+
+  var getBottleStock = function(bottleType) {
+    var selector = "#" + bottleType + "Stock";
+    return browser.text(selector);
+  };
+
+  var getBottleCountSelector = function(bottleType) {
+    return "#" + bottleType + "Count";
+  };
+
+  var getBottleAddSelector = function(bottleType) {
+    return "#" + bottleType + "Add";
   };
 
   this.Given(/^the stock of "([^"]*)" bottles is (\d+)$/, function (bottleType, count, callback) {
     // Write code here that turns the phrase above into concrete actions
 
-    browserPromise.then(function() {
-      // check if count field is 0
-      // assert
-      // callback
-      assert(0 === 0);
-      callback();
-    }).fail(function() {
-      callback.fail();
-    });
+    test(function() {
+      var stock = getBottleStock(bottleType);
+      assert(stock == count);
+    }, callback);
 
   });
 
-  this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (bottleType, count, callback) {
-    // fill in bottle type, fill in count, submit
-
-    browserPromise.then(function() {
-      // check if count field is 0
-      // assert
-      // callback
-      assert(0 === 1);
-      callback();
-    }).fail(function() {
+  this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (count, bottleType, callback) {
+    try {
+      browser.fill(getBottleCountSelector(bottleType), count).pressButton(getBottleAddSelector(bottleType), function() {
+        callback();
+      });
+    } catch (e) {
       callback.fail();
-    });
-
+    }
   });
 
   this.Then(/^the stock of "([^"]*)" bottles should be (\d+)$/, function (bottleType, count, callback) {
     // Write code here that turns the phrase above into concrete actions
 
-    browserPromise.then(function() {
-      // check if count field is 0
-      // assert
-      // callback
-      callback();
-    });
+    test(function() {
+      var stock = getBottleStock(bottleType);
+      assert(stock == count);
+    }, callback);
 
   });
 
