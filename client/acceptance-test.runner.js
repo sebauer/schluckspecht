@@ -3,6 +3,7 @@ var http = require('http');
 var serveStatic = require('serve-static');
 var proxy = require('proxy-middleware');
 var url = require('url');
+var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 var config = require('./acceptance-test.config');
 
@@ -29,13 +30,17 @@ var startRestServer = function() {
   // start REST-Server here
   console.log("Trying to start REST Server");
 
-  restServer = exec(config.startRestServerCmd);
+  restServer = spawn(config.startRestServerCmd.cmd, config.startRestServerCmd.params);
 
   console.log("REST Server pid is " + restServer.pid);
 
   restServer.stdout.on('data', function(data) {
-    console.log("Line " + data);
-    if (data.indexOf("Server started") != -1) {
+    var buff = new Buffer(data);
+    var line = buff.toString("UTF-8");
+
+    console.log(line);
+
+    if (line.indexOf("Server started") != -1) {
       runCucumber();
     }
   });
@@ -55,13 +60,13 @@ var startRestServer = function() {
 var runCucumber = function() {
   console.log("Trying to run cucumber tests");
 
-  cucumber = exec(config.runCucumberTestsCmd);
+  cucumber = spawn(config.runCucumberTestsCmd.cmd, config.runCucumberTestsCmd.params);
 
   cucumber.stdout.on('data', function(data) {
-    console.log("Line " + data);
-    if (data.indexOf("Server started") != -1) {
-      console.log("Running cucumber");
-    }
+    var buff = new Buffer(data);
+    var line = buff.toString("UTF-8");
+
+    console.log(line);
   });
 
   cucumber.stderr.on('data', defaultErrorCallback);

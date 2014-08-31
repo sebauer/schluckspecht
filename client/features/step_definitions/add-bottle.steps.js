@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 var assert = require('assert');
 var Browser = require('zombie');
 var http = require('http');
-var app = require('../../server');
+var config = require('../../acceptance-test.config');
 
 var browser = new Browser();
 
@@ -13,13 +13,11 @@ var browserPromise;
 module.exports = function() {
 
   this.Before(function(done) {
-    this.server = http.createServer(app).listen(3000);
-    browserPromise = browser.visit("http://localhost:3000/app.html#/home", done);
+    browserPromise = browser.visit("http://localhost:" + config.testWebServerPort + "/app.html#/home", done);
   });
 
   this.After(function(done) {
     browser.close();
-    this.server.close(done);
   });
 
 
