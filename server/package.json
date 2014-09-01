@@ -10,7 +10,8 @@
     "restify": "2.8.x"
   },
   "devDependencies": {
-    "mockgoose": "1.10.x"
+    "mockgoose": "1.10.x",
+    "mocha": "x.x.x"
   },
   "scripts": {
     "test": "mocha",
