@@ -34,6 +34,8 @@
     "karma-phantomjs-launcher": "^0.1.4"
   },
   "scripts": {
-    "test": "grunt karma:continuous"
+    "test": "npm run test-unit && npm run test-user",
+    "test-user": "node node_modules/cucumber/bin/cucumber.js",
+    "test-unit" : "grunt karma:continuous"
   }
 }
