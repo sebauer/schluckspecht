@@ -21,9 +21,10 @@ db = mongoose.connect(config.mongooseConnectionString);
 
 // Set up routes
 bottleServiceRouter = new bottleServiceRouter(server, db, log);
+bottleServiceRouter.addRoute('/bottle-service/bottle-types/add', 'post');
 bottleServiceRouter.addRoute('/bottle-service/bottle-types/get', 'get');
 bottleServiceRouter.addRoute('/bottle-service/bottles/add', 'post');
-bottleServiceRouter.addRoute('/bottle-service/bottle-types/add', 'post');
+bottleServiceRouter.addRoute('/bottle-service/bottles/take', 'post');
 
 // Start server
 server.listen(config.restApiPort, function(){
