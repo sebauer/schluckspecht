@@ -1,4 +1,4 @@
-var callbackHelper = require('./callback-helper');
+var callbackHelper = require('../helper/callback-helper');
 var bottleService = require('../service/bottle-service');
 
 var _routes = [];

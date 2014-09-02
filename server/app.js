@@ -6,7 +6,7 @@ server.use(restify.bodyParser());
 
 var config = require('./config');
 var pjson = require('./package.json');
-var bottleServiceRouter = require('./helper/bottle-service-router');
+var bottleServiceRouter = require('./router/bottle-service-router');
 
 var log = bunyan.createLogger(
   {
