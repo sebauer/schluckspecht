@@ -149,22 +149,7 @@ describe('bottleService', function(){
           });
         });
       });
-
-      it('should fail if the number of taken bottles is higher than the remaining stock', function(done){
-        BottleType.findOne({
-          name: 'Pils Hell',
-          make: 'Tegernseer'
-        }, function(err, tegernseer){
-          if(err) done(err);
-          bottleService.takeBottles(tegernseer._id, initialStockCount+10, function(callbackError, newValue){
-            if(callbackError) done();
-            else {
-              done(new Error('No error raised'));
-            }
-          });
-        });
-      });
-
+      
       it('should fail if no valid number is given', function(done){
         BottleType.findOne({
           name: 'Pils Hell',
