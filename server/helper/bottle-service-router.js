@@ -12,17 +12,26 @@ var bottleServiceRouter = function(server, db, log){
   bottleService.setConnection(_db);
 }
 
-bottleServiceRouter.prototype.addRoute = function(route, httpMethod) {
+bottleServiceRouter.prototype.addRoute = function(route, httpMethod, serviceMethod) {
   _log.info('Registered route %s', route);
+  if(!(serviceMethod in bottleService)){
+    _log.error('Method %s not known in bottle service!', serviceMethod);
+    return;
+  }
+  if(!(httpMethod in _server)){
+    _log.error('HTTP method %s unkown!', httpMethod);
+    return;
+  }
+  
   _routes[route] = _server[httpMethod](route, function(req, res){
     _log.info('Received call to %s', route);
 
     try {
       var cbHelper = new callbackHelper(req, res, _log);
-      bottleService.getBottleTypes(cbHelper.handleCallback);
+      bottleService[serviceMethod](cbHelper.handleCallback);
     } catch(e) {
       _log.error(e);
-      _res.send(500, e);
+      res.send(500, e);
     }
   });
 }
