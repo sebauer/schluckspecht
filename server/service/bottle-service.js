@@ -34,11 +34,11 @@ module.exports = {
       callback(null, result.stockCount);
     });
   },
-  removeBottles: function(bottleTypeId, num){},
+  takeBottles: function(bottleTypeId, num){},
 
   getBottleTypes: function(callback){
     var BottleType = mongoose.model('BottleType');
-    
+
     BottleType.find({}, callback);
   },
 
