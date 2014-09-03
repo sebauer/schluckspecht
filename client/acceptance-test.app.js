@@ -4,6 +4,7 @@ var serveStatic = require('serve-static');
 var proxy = require('proxy-middleware');
 var url = require('url');
 var exec = require('child_process').exec;
+var config = require('./acceptance-test.config');
 
 // console.log(process.cwd());
 
@@ -12,26 +13,23 @@ var cucumber;
 
 var app = connect()
   //.use(connect.logger('dev'))
-  .use('/service', proxy(url.parse('https://localhost:1337/')))
+  .use(config.restAPIEndpoint, proxy(url.parse('https://localhost:' + config.restApiPort + '/')))
   .use(serveStatic('build'))
   //.use(connect.directory('public'))
   .use(function(req, res){
     res.end('Hello from Connect!\n');
   });
 
-http.createServer(app).listen(3000, function() {
+http.createServer(app).listen(config.testWebServerPort, function() {
   console.log("Base Server started");
   startRestServer();
 });
 
-/*
-  TODO: start with MOCKDB flag
-*/
 var startRestServer = function() {
   // start REST-Server here
   console.log("Trying to start REST Server");
 
-  restServer = exec('node ../server/app.js');
+  restServer = exec(config.startRestServerCmd);
 
   console.log("REST Server pid is " + restServer.pid);
 
@@ -57,7 +55,7 @@ var startRestServer = function() {
 var runCucumber = function() {
   console.log("Trying to run cucumber tests");
 
-  cucumber = exec('cucumber-js');
+  cucumber = exec(config.runCucumberTestsCmd);
 
   cucumber.stdout.on('data', function(data) {
     console.log("Line " + data);
