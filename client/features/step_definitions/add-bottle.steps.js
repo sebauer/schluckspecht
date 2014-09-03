@@ -9,7 +9,7 @@ var browserPromise;
 module.exports = function() {
 
   this.Before(function(callback) {
-    browserPromise = browser.visit("http://localhost/app.html#/home", function() {
+    browserPromise = browser.visit("http://localhost:3000/app.html#/home", function() {
       callback();
     });
   });
