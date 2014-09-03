@@ -1,5 +1,9 @@
+process.env.NODE_ENV = 'test';
+
 var assert = require('assert');
 var Browser = require('zombie');
+var http = require('http');
+var app = require('../../server');
 
 var browser = new Browser();
 
@@ -8,15 +12,14 @@ var browserPromise;
 
 module.exports = function() {
 
-  this.Before(function(callback) {
-    browserPromise = browser.visit("http://localhost:3000/app.html#/home", function() {
-      callback();
-    });
+  this.Before(function(done) {
+    this.server = http.createServer(app).listen(3000);
+    browserPromise = browser.visit("http://localhost:3000/app.html#/home", done);
   });
 
-  this.After(function(callback) {
+  this.After(function(done) {
     browser.close();
-    callback();
+    this.server.close(done);
   });
 
 

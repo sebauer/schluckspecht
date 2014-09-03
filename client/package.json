@@ -5,7 +5,9 @@
     "type": "git",
     "url": "git@github.com:sebauer/schluckspecht.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "3.x"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-less": "~0.11.0",
@@ -37,7 +39,9 @@
     "serve-index": "^1.2.0"
   },
   "scripts": {
-    "test": "grunt karma:continuous",
+    "test": "npm run test-unit && npm run test-user",
+    "test-user": "node node_modules/cucumber/bin/cucumber.js",
     "test-acceptance": "node acceptance-test.app.js"
+    "test-unit" : "grunt karma:continuous"
   }
 }

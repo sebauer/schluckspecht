@@ -34,11 +34,39 @@ module.exports = {
       callback(null, result.stockCount);
     });
   },
-  removeBottles: function(bottleTypeId, num){},
+
+  /**
+   * Takes bottles from the stock of the given BottleType.
+   *
+   * Returns the new stock value
+   */
+  takeBottles: function(bottleTypeId, num, callback){
+    if(num <= 0 || isNaN(num)){
+      callback(new Error('Must be a valid positive number'));
+      return;
+    }
+    var BottleType = mongoose.model('BottleType');
+
+    // Find bottle type
+    BottleType.findByIdAndUpdate(bottleTypeId, {
+      $inc: {
+        stockCount: -num
+      }
+    }, {
+      select: ['stockCount']
+    }, function(err, result){
+      // Check for error
+      if(err) {
+        callback(err);
+        return;
+      }
+      callback(null, result.stockCount);
+    });
+  },
 
   getBottleTypes: function(callback){
     var BottleType = mongoose.model('BottleType');
-    
+
     BottleType.find({}, callback);
   },
 

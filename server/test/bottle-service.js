@@ -12,6 +12,7 @@ bottleService.setConnection(mongoose);
 describe('bottleService', function(){
 
   var BottleType = mongoose.model('BottleType');
+  var initialStockCount = 15;
 
   // Set up test models
   beforeEach(function(done){
@@ -19,7 +20,7 @@ describe('bottleService', function(){
       BottleType.create({
         make: 'Tegernseer',
         name: 'Pils Hell',
-        stockCount: 0
+        stockCount: initialStockCount
       }, function(err, model) {
         done(err);
       });
@@ -115,12 +116,60 @@ describe('bottleService', function(){
     });
   });
 
-
   describe('bottles', function(){
+
+    describe('takeBottles', function(){
+      it('should return the new number of bottles on stock, when successful', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          else {
+            bottleService.takeBottles(tegernseer._id, 5, function(err, newValue){
+              if(err) done(err);
+              assert.equal(newValue, initialStockCount-5);
+              done();
+            });
+          }
+        });
+      });
+
+      it('should fail if the number of taken bottles is negative', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          bottleService.takeBottles(tegernseer._id, -10, function(callbackError, newValue){
+            if(callbackError) done();
+            else {
+              done(new Error('No error raised'));
+            }
+          });
+        });
+      });
+      
+      it('should fail if no valid number is given', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          bottleService.takeBottles(tegernseer._id, 'foobar', function(err, newValue){
+            if(err) done();
+            else {
+              done(new Error('No error raised'));
+            }
+          });
+        });
+      });
+
+    });
 
     describe('addBottles', function() {
 
-      it('should return the new number of bottles on stock', function(done){
+      it('should return the new number of bottles on stock, when successful', function(done){
         BottleType.findOne({
           name: 'Pils Hell',
           make: 'Tegernseer'
@@ -129,7 +178,7 @@ describe('bottleService', function(){
           else {
             bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
               if(err) done(err);
-              assert.equal(newValue, 10);
+              assert.equal(newValue, initialStockCount+10);
               done();
             });
           }
@@ -166,6 +215,7 @@ describe('bottleService', function(){
           });
         });
       });
+
     });
   });
 
