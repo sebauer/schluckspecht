@@ -1,0 +1,8 @@
+<div class="bottle-type-display">
+  <h4>{{ bottleType.name }}</h4>
+  <h5>{{ bottleType.make }}</h5>
+  <span id="{{bottleType.name + 'Stock'}}">{{ bottleType.stockCount }}</span>
+  <br/>
+  <input id="{{bottleType.name + 'Count'}}" type="text" ng-model="num" placeholder="bottles to add"/>
+  <button id="{{bottleType.name + 'Add'}}" ng-click="addBottles(num)" class="btn">Add</button>
+</div>
