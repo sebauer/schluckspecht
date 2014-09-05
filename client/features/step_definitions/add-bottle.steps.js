@@ -46,32 +46,36 @@ module.exports = function() {
     }
   };
 
-  var getBottleStock = function(bottleType) {
-    var selector = "#" + bottleType + "Stock";
+  var getDataNameSelector = function(make, name) {
+    return '[data-name="' + make + name + '"]';
+  };
+
+  var getBottleStock = function(make, name) {
+    var selector = getDataNameSelector(make, name) + " .stock";
     return browser.text(selector);
   };
 
-  var getBottleCountSelector = function(bottleType) {
-    return "#" + bottleType + "Count";
+  var getBottleCountSelector = function(make, name) {
+    return getDataNameSelector(make, name) + " .count";
   };
 
-  var getBottleAddSelector = function(bottleType) {
-    return "#" + bottleType + "Add";
+  var getBottleAddSelector = function(make, name) {
+    return getDataNameSelector(make, name) + " .add";
   };
 
-  this.Given(/^the stock of "([^"]*)" bottles is (\d+)$/, function (bottleType, count, callback) {
-    // Write code here that turns the phrase above into concrete actions
+
+  this.Given(/^the stock of "([^"]*)" "([^"]*)" bottles is (\d+)$/, function (make, name, count, callback) {
 
     test(function() {
-      var stock = getBottleStock(bottleType);
+      var stock = getBottleStock(make, name);
       assert(stock == count);
     }, callback);
 
   });
 
-  this.When(/^I add (\d+) "([^"]*)" bottles to the inventory$/, function (count, bottleType, callback) {
+  this.When(/^I add (\d+) "([^"]*)" "([^"]*)" bottles to the inventory$/, function (count, make, name, callback) {
     try {
-      browser.fill(getBottleCountSelector(bottleType), count).pressButton(getBottleAddSelector(bottleType), function() {
+      browser.fill(getBottleCountSelector(make, name), count).pressButton(getBottleAddSelector(make, name), function() {
         callback();
       });
     } catch (e) {
@@ -79,11 +83,10 @@ module.exports = function() {
     }
   });
 
-  this.Then(/^the stock of "([^"]*)" bottles should be (\d+)$/, function (bottleType, count, callback) {
-    // Write code here that turns the phrase above into concrete actions
+  this.Then(/^the stock of "([^"]*)" "([^"]*)" bottles should be (\d+)$/, function (make, name, count, callback) {
 
     test(function() {
-      var stock = getBottleStock(bottleType);
+      var stock = getBottleStock(make, name);
       assert(stock == count);
     }, callback);
 
