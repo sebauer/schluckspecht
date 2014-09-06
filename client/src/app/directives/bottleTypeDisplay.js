@@ -17,6 +17,7 @@ angular.module('schluckspecht.bottleTypeDisplay', [
       $scope.addBottles = function(num) {
         bottleService.addBottles(bottleType._id, Number(num)).then(function(newStockCount) {
           bottleType.stockCount = newStockCount;
+          $scope.num = 0;
         }, function() {
           alert("fail!");
         });
