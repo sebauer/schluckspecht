@@ -14,7 +14,7 @@ var cucumber;
 
 var app = connect()
   //.use(connect.logger('dev'))
-  .use(config.restAPIEndpoint, proxy(url.parse('https://localhost:' + config.restApiPort + '/')))
+  .use(config.restAPIEndpoint, proxy(url.parse('http://localhost:' + config.restApiPort + '/')))
   .use(serveStatic('build'))
   //.use(connect.directory('public'))
   .use(function(req, res){
