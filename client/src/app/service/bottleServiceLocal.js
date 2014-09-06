@@ -2,8 +2,8 @@ angular.module('schluckspecht.bottleServiceLocal', [])
   .service('bottleServiceLocal', function($q) {
 
     var warehouse = [
-      {id: 0, make: "volvic", name: "wasser still", stockCount: 0},
-      {id: 1, make: "Krombacher", name: "Fassbrause", stockCount: 0}
+      {_id: 0, make: "volvic", name: "wasser still", stockCount: 0},
+      {_id: 1, make: "Krombacher", name: "Fassbrause", stockCount: 0}
     ];
 
     this.getBottleTypes = function() {
@@ -20,7 +20,7 @@ angular.module('schluckspecht.bottleServiceLocal', [])
       var bottleType;
 
       for (var i = 0; i < warehouse.length; i++) {
-          if (warehouse[i].id === bottleTypeId) {
+          if (warehouse[i]._id === bottleTypeId) {
             bottleType = warehouse[i];
             break;
           }
