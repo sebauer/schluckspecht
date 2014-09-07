@@ -43,7 +43,7 @@ bottleServiceRouter.prototype.addRoute = function(route, httpMethod, serviceMeth
       if(route in _parameters){
         for(var i in _parameters[route]) {
           if(!(_parameters[route][i] in req.params)){
-            throw new Error('Parameter %s is missing', _parameters[route][i]);
+            throw new Error('Parameter '+_parameters[route][i]+' is missing');
           }
           // Now add the parameter to our parameter list
           _callParams[route].push(req.params[_parameters[route][i]]);
