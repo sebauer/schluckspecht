@@ -31,5 +31,5 @@ BottleTypeSchema.index({
 var BottleType = mongoose.model('BottleType', BottleTypeSchema);
 
 module.exports = {
-  BottleType: BottleType
+  model: BottleType
 }

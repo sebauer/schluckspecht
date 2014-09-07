@@ -1,4 +1,4 @@
-require('../models/BottleType');
+var BottleType = require('../models/BottleType').BottleType;
 
 var assert = require('assert');
 
@@ -37,10 +37,12 @@ describe('bottleService', function(){
             name: 'Tannenzäpfle'
           }, {
             make: 'Tegernseer',
-            name: 'Pils'
+            name: 'Pils',
+            stockCount: initialStockCount
           }, {
             make: 'Volvic',
-            name: 'Natürliches Mineralwasser'
+            name: 'Natürliches Mineralwasser',
+            stockCount: 0
           }
         ], function(err, model) {
           done(err);
@@ -50,6 +52,17 @@ describe('bottleService', function(){
       it('should return a list of all existing bottle types', function(done){
         bottleService.getBottleTypes(function(err, result){
           assert.equal(result.length, 3);
+          done();
+        });
+      });
+
+      it('should return all required fields for bottle types', function(done){
+        bottleService.getBottleTypes(function(err, result){
+          for(var i in result){
+            assert(result[i].make);
+            assert(result[i].name);
+            assert.equal('stockCount' in result[i], true);
+          }
           done();
         });
       });
@@ -149,7 +162,7 @@ describe('bottleService', function(){
           });
         });
       });
-      
+
       it('should fail if no valid number is given', function(done){
         BottleType.findOne({
           name: 'Pils Hell',

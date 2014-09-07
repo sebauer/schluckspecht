@@ -1,5 +1,5 @@
 var mongoose = {};
-require('../models/BottleType');
+var BottleType = require('../models/BottleType').model;
 
 module.exports = {
   setConnection: function(mongoInstance) {
@@ -16,7 +16,7 @@ module.exports = {
       callback(new Error('Must be a valid positive number'));
       return;
     }
-    var BottleType = mongoose.model('BottleType');
+    //var BottleType = mongoose.model('BottleType');
 
     // Find bottle type
     BottleType.findByIdAndUpdate(bottleTypeId, {
@@ -45,7 +45,7 @@ module.exports = {
       callback(new Error('Must be a valid positive number'));
       return;
     }
-    var BottleType = mongoose.model('BottleType');
+    //var BottleType = mongoose.model('BottleType');
 
     // Find bottle type
     BottleType.findByIdAndUpdate(bottleTypeId, {
@@ -65,7 +65,7 @@ module.exports = {
   },
 
   getBottleTypes: function(callback){
-    var BottleType = mongoose.model('BottleType');
+    //var BottleType = mongoose.model('BottleType', );
 
     BottleType.find({}, callback);
   },
@@ -84,7 +84,7 @@ module.exports = {
       return;
     }
 
-    var BottleType = mongoose.model('BottleType');
+    //var BottleType = mongoose.model('BottleType');
     BottleType.create({
       'make': make,
       'name': name
