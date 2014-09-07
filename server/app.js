@@ -7,6 +7,7 @@ server.use(restify.bodyParser());
 var config = require('./config');
 var pjson = require('./package.json');
 var bottleServiceRouter = require('./router/bottle-service-router');
+var mockDBHelper = require('./helper/mock-db-helper');
 
 var log = bunyan.createLogger(
   {
@@ -15,6 +16,10 @@ var log = bunyan.createLogger(
 );
 
 log.info('Starting schluckspecht-server v%s', pjson.version);
+
+mockDBHelper.mockDBIfNecessary(mongoose, process.argv);
+
+log.info("Mocked DB enabled: " + mongoose.isMocked);
 
 log.info('Connecting with MongoDB..');
 db = mongoose.connect(config.mongooseConnectionString);

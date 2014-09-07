@@ -13,7 +13,9 @@
  * specified, as shown below.
  */
 angular.module( 'ngBoilerplate.home', [
-  'ui.router'
+  'ui.router',
+  'schluckspecht.bottleTypeDisplay',
+  'schluckspecht.bottleService'
 ])
 
 /**
@@ -37,20 +39,11 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
+.controller( 'HomeCtrl', function HomeController( bottleService, $scope ) {
 
-  var warehouse = [
-    {id: 0, name: "volvic", stock: 0},
-    {id: 1, name: "Krombacher Fassbrause", stock: 0}
-  ];
-
-  $scope.getBottleTypes = function() {
-    return warehouse;
-  };
-
-  $scope.addBottle = function(bottleType, count) {
-    bottleType.stock = bottleType.stock + Number(count);
-  };
+  bottleService.getBottleTypes().then(function(bottleTypes) {
+    $scope.bottleTypes = bottleTypes;
+  });
 
 })
 

@@ -4,7 +4,7 @@
     <title ng-bind="pageTitle"></title>
 
     <!-- social media tags -->
-    <!-- 
+    <!--
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@joshdmiller">
     <meta name="twitter:title" content="ngBoilerplate">
@@ -17,7 +17,7 @@
     <meta property="og:image" content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846" />
     <meta property="og:description" content="Non-Trivial AngularJS Made Easy: Everything you need to kickstart AngularJS projects: a best-practice directory structure, an intelligent build system, and the best web design libraries around.">
 	 -->
-	 
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- font awesome from BootstrapCDN -->
@@ -28,13 +28,15 @@
 
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
-
+    <script type="text/javascript">
+      window.environment = '<%= ENV %>';
+    </script>
     <!-- it's stupid to have to load it here, but this is for the +1 button -->
   </head>
   <body>
 
     <div class="container" ui-view="main"></div>
 
-    
+
   </body>
 </html>

@@ -31,11 +31,17 @@
     "cucumber": "latest",
     "zombie": "latest",
     "q": "^1.0.1",
-    "karma-phantomjs-launcher": "^0.1.4"
+    "karma-phantomjs-launcher": "^0.1.4",
+    "connect": "^3.1.1",
+    "proxy-middleware": "^0.5.1",
+    "cookie-parser": "^1.3.2",
+    "serve-static": "^1.5.3",
+    "serve-index": "^1.2.0"
   },
   "scripts": {
     "test": "npm run test-unit && npm run test-user",
     "test-user": "node node_modules/cucumber/bin/cucumber.js",
+    "test-acceptance": "node acceptance-test.runner.js",
     "test-unit" : "grunt karma:continuous"
   }
 }
