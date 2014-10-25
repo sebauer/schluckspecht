@@ -1,8 +1,14 @@
 <div class="row">
 	<div class="col-md-12">
-
 		<bottle-type-display bottle-type="bottleType" ng-repeat="bottleType in bottleTypes">
 		</bottle-type-display
-
 	</div>
+</div>
+
+<div class="row">
+	<form name="addBottleTypeForm" role="form" novalidate>
+		<input type="text" name="make" ng-model="newBottleType.make" placeholder="make" required />
+		<input type="text" name="name" ng-model="newBottleType.name" placeholder="name" required />
+		<button ng-click="addBottleType(newBottleType)" ng-disabled="addBottleTypeForm.$invalid">Add Bottle type</button>
+	</form>
 </div>
