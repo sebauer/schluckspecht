@@ -5,7 +5,7 @@ angular.module('schluckspecht.bottleServiceRemote', [])
     var bottleTypesEndpoint = endpoint + "/bottle-types";
     var bottlesEndpoint = endpoint + "/bottles";
 
-      this.getBottleTypes = function() {
+    this.getBottleTypes = function() {
       return $http.get(bottleTypesEndpoint + '/get')
         .then(defaultResponseHandler);
     };
@@ -21,6 +21,13 @@ angular.module('schluckspecht.bottleServiceRemote', [])
       return $http.post(
         bottleTypesEndpoint + '/add',
         {name: name, make: make}
+      ).then(defaultResponseHandler);
+    };
+
+    this.takeBottles = function(bottleTypeId, amount) {
+      return $http.post(
+        bottlesEndpoint + '/take',
+        {bottleTypeId: bottleTypeId, amount: amount}
       ).then(defaultResponseHandler);
     };
 
