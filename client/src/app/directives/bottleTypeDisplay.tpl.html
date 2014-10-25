@@ -1,6 +1,8 @@
 <div class="bottle-type-display" data-name="{{bottleType.make + bottleType.name}}">
   <h4>{{ bottleType.make }} {{ bottleType.name }}</h4>
   <div class="stock">{{ bottleType.stockCount }}</div>
-  <input class="count" type="text" ng-model="num"/>
-  <button class="add btn btn-primary" ng-click="addBottles(num)">Add</button>
+  <form name="addBottlesForm" role="form" novalidate>
+    <input class="count" type="text" ng-model="num" placeholder="0" required />
+    <button class="add btn btn-primary" ng-click="addBottles(num)" ng-disabled="addBottlesForm.$invalid">Add</button>
+  </form>
 </div>
