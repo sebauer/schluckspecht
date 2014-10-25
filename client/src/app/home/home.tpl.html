@@ -6,9 +6,13 @@
 </div>
 
 <div class="row">
-	<form name="addBottleTypeForm" role="form" novalidate>
-		<input type="text" name="make" ng-model="newBottleType.make" placeholder="make" required />
-		<input type="text" name="name" ng-model="newBottleType.name" placeholder="name" required />
-		<button ng-click="addBottleType(newBottleType)" ng-disabled="addBottleTypeForm.$invalid">Add Bottle type</button>
+	<form name="addBottleTypeForm" role="form" class="form-inline" novalidate>
+		<div class="form-group">
+			<input type="text" name="make" ng-model="newBottleType.make" placeholder="make" required />
+		</div>
+		<div class="form-group">
+			<input type="text" name="name" ng-model="newBottleType.name" placeholder="name" required />
+		</div>
+		<button ng-click="addBottleType(newBottleType)" class="btn btn-default" ng-disabled="addBottleTypeForm.$invalid">Add Bottle type</button>
 	</form>
 </div>
