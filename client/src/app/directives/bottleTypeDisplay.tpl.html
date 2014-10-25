@@ -5,4 +5,5 @@
     <input class="count" type="text" ng-model="num" placeholder="0" required />
     <button class="add btn btn-primary" ng-click="addBottles(num)" ng-disabled="addBottlesForm.$invalid">Add</button>
   </form>
+  <button class="btn btn-danger" ng-disabled="bottleType.stockCount === 0" ng-click="takeBottle(bottleType._id)">Take 1</button>
 </div>
