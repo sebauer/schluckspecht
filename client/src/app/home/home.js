@@ -40,10 +40,17 @@ angular.module( 'ngBoilerplate.home', [
  * And of course we define a controller for our route.
  */
 .controller( 'HomeCtrl', function HomeController( bottleService, $scope ) {
+  $scope.bottleTypes = [];
 
   bottleService.getBottleTypes().then(function(bottleTypes) {
     $scope.bottleTypes = bottleTypes;
   });
+
+  $scope.addBottleType = function(bottleType) {
+    bottleService.addBottleType(bottleType.name, bottleType.make).then(function(addedBottleType){
+      $scope.bottleTypes.push(addedBottleType);
+    });
+  };
 
 })
 
