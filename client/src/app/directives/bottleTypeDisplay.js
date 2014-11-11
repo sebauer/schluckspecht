@@ -22,9 +22,9 @@ angular.module('schluckspecht.bottleTypeDisplay', [
         });
       };
 
-      $scope.takeBottle = function(bottleTypeId) {
-        bottleService.takeBottles(bottleTypeId, 1).then(function() {
-          bottleType.stockCount -= 1;
+      $scope.takeBottle = function() {
+        bottleService.takeBottles(bottleType._id, 1).then(function(newStockCount) {
+          bottleType.stockCount = newStockCount;
         });
       };
 
