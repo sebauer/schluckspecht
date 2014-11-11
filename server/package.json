@@ -16,6 +16,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "node app.js | node node_modules/bunyan/bin/bunyan"
+    "start": "node app.js | node node_modules/bunyan/bin/bunyan",
+    "start-mock": "node app.js --mock-db | node node_modules/bunyan/bin/bunyan"
   }
 }
