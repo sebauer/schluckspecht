@@ -109,6 +109,14 @@ h2 {
   }
 }
 
+.btn {
+  &:active {
+    background-image: none;
+    @shadow: inset 0 6px 8px rgba(0,0,0,.25), 0 4px 6px rgba(0,0,0,.25);
+    .box-shadow(@shadow);
+    outline: 0;
+  }
+}
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
