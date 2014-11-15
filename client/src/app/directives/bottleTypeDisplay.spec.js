@@ -43,7 +43,7 @@ describe('BottleTypeDisplay', function() {
       expect($scope.bottleType.stockCount).toBe(0);
 
       $httpBackend.expectPOST('/service/bottle-service/bottles/add',
-        {bottleTypeId: $scope.bottleType._id, amount: 10}).respond(200, 10);
+        {bottleTypeId: $scope.bottleType._id, amount: 10}).respond(200, {stockCount: 10});
 
       $scope.addBottles(10);
 
@@ -59,7 +59,7 @@ describe('BottleTypeDisplay', function() {
       $scope.bottleType.stockCount = 8;
 
       $httpBackend.expectPOST('/service/bottle-service/bottles/take',
-        {bottleTypeId: $scope.bottleType._id, amount: 1}).respond(200, 7);
+        {bottleTypeId: $scope.bottleType._id, amount: 1}).respond(200, {stockCount: 7});
 
       $scope.takeBottle($scope.bottleType._id);
 

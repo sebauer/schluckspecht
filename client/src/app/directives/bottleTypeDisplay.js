@@ -14,8 +14,8 @@ angular.module('schluckspecht.bottleTypeDisplay', [
       var bottleType = $scope.bottleType;
 
       $scope.addBottles = function(num) {
-        bottleService.addBottles(bottleType._id, Number(num)).then(function(newStockCount) {
-          bottleType.stockCount = newStockCount;
+        bottleService.addBottles(bottleType._id, Number(num)).then(function(data) {
+          bottleType.stockCount = data.stockCount;
           $scope.num = null;
         }, function() {
           alert("fail!");
@@ -23,8 +23,8 @@ angular.module('schluckspecht.bottleTypeDisplay', [
       };
 
       $scope.takeBottle = function() {
-        bottleService.takeBottles(bottleType._id, 1).then(function(newStockCount) {
-          bottleType.stockCount = newStockCount;
+        bottleService.takeBottles(bottleType._id, 1).then(function(data) {
+          bottleType.stockCount = data.stockCount;
         });
       };
 
