@@ -16,6 +16,7 @@ describe('callbackHandler', function(){
 
     resMock = {
       'send' : function(){},
+      'json' : function(){}
     }
   });
 
@@ -51,7 +52,7 @@ describe('callbackHandler', function(){
 
     it('should return a HTTP status 200 when the call succeeded', function(done){
       resMock = {
-        'send': function(httpStatus, result){
+        'json': function(httpStatus, result){
           assert.equal(httpStatus, 200);
           done();
         },

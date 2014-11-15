@@ -30,7 +30,7 @@ module.exports = {
         callback(err);
         return;
       }
-      callback(null, result.stockCount);
+      callback(null,  { 'stockCount' :result.stockCount } );
     });
   },
 
@@ -58,7 +58,7 @@ module.exports = {
           callback(err);
           return;
         }
-        callback(null, result.stockCount);
+        callback(null, { 'stockCount' :result.stockCount } );
       })
     });
   },

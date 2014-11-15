@@ -141,7 +141,7 @@ describe('bottleService', function(){
           else {
             bottleService.takeBottles(tegernseer._id, 5, function(err, newValue){
               if(err) done(err);
-              assert.equal(newValue, initialStockCount-5);
+              assert.equal(newValue.stockCount, initialStockCount-5);
               done();
             });
           }
@@ -187,7 +187,7 @@ describe('bottleService', function(){
           else {
             bottleService.takeBottles(tegernseer._id, 15, function(err, newValue){
               if(err) done(err);
-              assert.equal(newValue, 0);
+              assert.equal(newValue.stockCount, 0);
               done();
             });
           }
@@ -224,7 +224,7 @@ describe('bottleService', function(){
           else {
             bottleService.addBottles(tegernseer._id, 10, function(err, newValue){
               if(err) done(err);
-              assert.equal(newValue, initialStockCount+10);
+              assert.equal(newValue.stockCount, initialStockCount+10);
               done();
             });
           }

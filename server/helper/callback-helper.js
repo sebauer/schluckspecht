@@ -14,7 +14,7 @@ callbackHelper.prototype.handleCallback = function(err, result) {
     _res.send(500, err);
   } else {
     _log.info('Call succeeded');
-    _res.send(200, result);
+    _res.json(200, result);
   }
 }
 
