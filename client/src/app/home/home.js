@@ -39,12 +39,23 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( bottleService, $scope ) {
+.controller( 'HomeCtrl', function HomeController( bottleService, $scope, $timeout ) {
   $scope.bottleTypes = [];
 
-  bottleService.getBottleTypes().then(function(bottleTypes) {
-    $scope.bottleTypes = bottleTypes;
-  });
+  var loadBottleTypes = function() {
+    bottleService.getBottleTypes().then(function(bottleTypes) {
+      $scope.bottleTypes = bottleTypes;
+      schedule(1000 * 30);
+    });
+  };
+
+  var schedule = function(delay) {
+    $timeout(function() {
+      loadBottleTypes();
+    }, delay);
+  };
+
+  loadBottleTypes();
 
   $scope.addBottleType = function(bottleType) {
     bottleService.addBottleType(bottleType.name, bottleType.make).then(function(addedBottleType){
