@@ -5,7 +5,7 @@ var proxy = require('proxy-middleware');
 var url = require('url');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
-var config = require('./acceptance-test.config');
+var config = require('./dev-env.config');
 
 // console.log(process.cwd());
 

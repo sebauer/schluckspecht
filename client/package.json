@@ -42,6 +42,7 @@
     "test": "npm run test-unit && npm run test-user",
     "test-user": "node node_modules/cucumber/bin/cucumber.js",
     "test-acceptance": "node acceptance-test.runner.js",
-    "test-unit" : "grunt karma:continuous"
+    "test-unit": "grunt karma:continuous",
+    "start": "node server.js"
   }
 }
