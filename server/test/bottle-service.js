@@ -178,6 +178,39 @@ describe('bottleService', function(){
         });
       });
 
+      it('return the number 0 when the stock is empty', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          else {
+            bottleService.takeBottles(tegernseer._id, 15, function(err, newValue){
+              if(err) done(err);
+              assert.equal(newValue, 0);
+              done();
+            });
+          }
+        });
+      });
+
+      it('throw an error when the number of bottles taken is greater than the current stock', function(done){
+        BottleType.findOne({
+          name: 'Pils Hell',
+          make: 'Tegernseer'
+        }, function(err, tegernseer){
+          if(err) done(err);
+          else {
+            bottleService.takeBottles(tegernseer._id, 17, function(err, newValue){
+              if(err) done();
+              else {
+                done(new Error('No error raised'));
+              }
+            });
+          }
+        });
+      });
+
     });
 
     describe('addBottles', function() {

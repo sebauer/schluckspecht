@@ -45,20 +45,21 @@ module.exports = {
       return;
     }
 
-    // Find bottle type
-    BottleType.findByIdAndUpdate(bottleTypeId, {
-      $inc: {
-        stockCount: -num
-      }
-    }, {
-      select: ['stockCount']
-    }, function(err, result){
-      // Check for error
+    BottleType.findById(bottleTypeId, function(err, doc){
       if(err) {
         callback(err);
         return;
       }
-      callback(null, result.stockCount);
+
+      doc.stockCount = doc.stockCount-num;
+
+      doc.save(function(err, result){
+        if(err) {
+          callback(err);
+          return;
+        }
+        callback(null, result.stockCount);
+      })
     });
   },
 
