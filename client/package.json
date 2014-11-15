@@ -43,6 +43,6 @@
     "test-user": "node node_modules/cucumber/bin/cucumber.js",
     "test-acceptance": "node acceptance-test.runner.js",
     "test-unit": "grunt karma:continuous",
-    "start": "node server.js"
+    "start": "node server.js | node ../server/node_modules/bunyan/bin/bunyan"
   }
 }
