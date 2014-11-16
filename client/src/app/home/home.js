@@ -15,7 +15,8 @@
 angular.module( 'ngBoilerplate.home', [
   'ui.router',
   'schluckspecht.bottleTypeDisplay',
-  'schluckspecht.bottleService'
+  'schluckspecht.bottleService',
+  'schluckspecht.bottleTypeSynchronizer'
 ])
 
 /**
@@ -39,23 +40,13 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( bottleService, $scope, $timeout ) {
+.controller( 'HomeCtrl', function HomeController(bottleService, bottleTypeSynchronizer, $scope, $timeout) {
   $scope.bottleTypes = [];
 
-  var loadBottleTypes = function() {
-    bottleService.getBottleTypes().then(function(bottleTypes) {
-      $scope.bottleTypes = bottleTypes;
-      schedule(1000 * 30);
-    });
-  };
-
-  var schedule = function(delay) {
-    $timeout(function() {
-      loadBottleTypes();
-    }, delay);
-  };
-
-  loadBottleTypes();
+  bottleService.getBottleTypes().then(function(bottleTypes) {
+    $scope.bottleTypes = bottleTypes;
+    bottleTypeSynchronizer.synchronize(bottleTypes, 30 * 1000);
+  });
 
   $scope.addBottleType = function(bottleType) {
     bottleService.addBottleType(bottleType.name, bottleType.make).then(function(addedBottleType){
