@@ -1,0 +1,4 @@
+module.exports = {
+  restApiPort: 1337,
+  mongooseConnectionString: 'mongodb://localhost/schluckspecht',
+}
